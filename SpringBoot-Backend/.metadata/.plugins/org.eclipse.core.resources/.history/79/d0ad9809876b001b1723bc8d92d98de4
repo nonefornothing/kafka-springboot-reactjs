@@ -1,0 +1,5 @@
+package com.kafka.ConsumerProducer.config;
+
+public class WebSocketConfig {
+
+}

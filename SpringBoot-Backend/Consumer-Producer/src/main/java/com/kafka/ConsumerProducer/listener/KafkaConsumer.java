@@ -1,0 +1,54 @@
+package com.kafka.ConsumerProducer.listener;
+
+import java.util.Properties;
+
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+
+import com.kafka.ConsumerProducer.model.Employee;
+
+@Service
+public class KafkaConsumer {
+
+//	@KafkaListener(topics = "Kafka_Employees", groupId = "group_id")
+//	public void consume(String message) {
+//		System.out.println("Consumed message " + message);
+//	}
+	
+//	@KafkaListener(topics = "Kafka_Example_json", groupId = "group_json", containerFactory = "userkafkaListenerFactory")
+//	public void consumeJson(User user) {
+//		System.out.println("Consumed JSON message " + user);
+//	}
+	
+//	@KafkaListener(topics = "Kafka_Employee", groupId = "group_json", containerFactory = "EmployeekafkaListenerFactory")
+//	public Employee consumeJson(Employee employee) {
+//		System.out.println("Consumed JSON message ");
+//		System.out.println("First Name : " + employee.getFirstName());
+//		System.out.println("Last Name : " + employee.getLastName());
+//		System.out.println("Email : " + employee.getEmailId());
+//		return employee;
+//	}
+	
+//	Properties props = new Properties();
+//    props.setProperty("bootstrap.servers", "localhost:9092");
+//    props.setProperty("group.id", "test");
+//    props.setProperty("enable.auto.commit", "false");
+//    props.setProperty("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+//    props.setProperty("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
+//    KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
+//    consumer.subscribe(Arrays.asList("foo", "bar"));
+//    final int minBatchSize = 200;
+//    List<ConsumerRecord<String, String>> buffer = new ArrayList<>();
+//    while (true) {
+//        ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+//        for (ConsumerRecord<String, String> record : records) {
+//            buffer.add(record);
+//        }
+//        if (buffer.size() >= minBatchSize) {
+//            insertIntoDb(buffer);
+//            consumer.commitSync();
+//            buffer.clear();
+//        }
+//    }
+	
+}

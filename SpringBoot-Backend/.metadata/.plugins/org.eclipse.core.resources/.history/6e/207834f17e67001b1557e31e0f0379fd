@@ -1,0 +1,82 @@
+package com.kafka.ConsumerProducer.controller;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.kafka.ConsumerProducer.listener.KafkaConsumer;
+import com.kafka.ConsumerProducer.model.Employee;
+
+@CrossOrigin(origins = "http://localhost:3000")
+@RestController
+@RequestMapping("kafka")
+public class EmployeesResource {
+	
+	@Autowired
+	private KafkaTemplate<String, Employee> kafkaTemplate;
+	private KafkaConsumer kafkaConsumer;
+	
+	private static final String TOPIC = "Kafka_Employee";
+	
+	//consumer
+	// get all employees
+	@GetMapping(value = "/subscribe/")
+	public Employee getAllEmployees(Employee employee) {
+		System.out.println("successfully send to frondend");
+		return kafkaConsumer.consumeJson(employee);
+	}
+	
+	
+
+	
+//	@GetMapping(value = "/employees/",params = "inquiry" )
+//	public ResponseEntity<Employee> getEmployeeByName(@PathParam(value = "inquiry") String inquiry) {
+//		List<Employee> employee = new ArrayList<Employee>();
+//		try {
+//			 employee = employeeRepository.findAllEmployeeBySearch(inquiry);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			// TODO: handle exception
+//		}
+//		return ResponseEntity.ok(employee);
+//	}
+	
+	//publisher
+		@PostMapping("/publish/")
+		public String createEmployee(@RequestBody Employee employee) {
+			String firstName = employee.getFirstName();;
+			String lastName = employee.getLastName();
+			String emailId = employee.getEmailId();
+			
+			kafkaTemplate.send(TOPIC, new Employee(firstName,lastName,emailId));
+			return "Published successfully";
+		}
+	
+//	@KafkaListener(topics = "Kafka_Example_update", groupId = "group_json", containerFactory = "userkafkaListenerFactory")
+//	public void consumeJson(User user) {
+//		System.out.println("Consumed JSON message " + user);
+//	}
+	
+	
+	
+//	public Employee createEmployee(@RequestBody Employee employee) {
+//		return employeeRepository.save(employee);
+//	}
+	
+	
+//	@GetMapping("/publish/")
+//	public String post(@PathVariable("name") final String name) {
+//		
+//		kafkaTemplate.send(TOPIC, new Employee(name,"Technology",12000L));
+//		return "Published successfully";
+//	}
+	
+}
